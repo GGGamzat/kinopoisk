@@ -1,0 +1,18 @@
+{% extends 'main/layout.html' %}
+
+{% load static %}
+
+{% block title %}
+    Фильмы
+{% endblock %}
+
+{% block main %}
+    <div class="main__container">
+        {% for film in films %}
+            <div class="film__card clear-fix">
+                <div class="film_img" style="background-img: url({{ film.image.url }})"></div>
+                {{ film.name }}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
