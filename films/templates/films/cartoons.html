@@ -1,0 +1,15 @@
+{% extends 'main/layout.html' %}
+
+{% load static %}
+
+{% block title %}
+    Мультфильмы
+{% endblock %}
+
+{% block main %}
+    <div class="main__container">
+        {% for cartoon in cartoons %}
+            {{ cartoon.name }}
+        {% endfor %}
+    </div>
+{% endblock %}
