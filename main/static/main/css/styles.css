@@ -1,11 +1,13 @@
 body {
     margin: 0;
-    height: 100%;
-    width: 100%;
+    min-height: 100%;
+    min-width: 100%;
+    line-height: 1;
     font-family: 'Montserrat';
 }
 
 .wrapper {
+    overflow: hidden;
     display: flex;
     min-height: 100%;
     flex-direction: column;
@@ -32,12 +34,13 @@ body {
 }
 
 .main {
-    flex: 1 0 auto;
+    flex: 1 1 auto;
     margin-top: 72px;
     background-color: #E9E9E9;
 }
 
 .main__container {
+    display: flex;
     margin: 0px 320px;
     width: 1280px;
     background-color: #fff;
@@ -54,17 +57,17 @@ body {
 }
 
 .film_img {
+    display: block;
     height: 200px;
     width: 100px;
     box-sizing: border-box;
-    background-color: #000;
+    /* background-color: #000; */
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
 }
 
 .footer {
-    flex: 0 0 auto;
     height: 72px;
     width: 100%;
     background-color: #2B2B2B;

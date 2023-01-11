@@ -1,0 +1,15 @@
+{% extends 'main/layout.html' %}
+
+{% load static %}
+
+{% block title %}
+    Комедии
+{% endblock %}
+
+{% block main %}
+    <div class="main__container">
+        {% for comedy in comedys %}
+            {{ comedy.name }}
+        {% endfor %}
+    </div>
+{% endblock %}
