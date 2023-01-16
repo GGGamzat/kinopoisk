@@ -7,7 +7,8 @@
     <title>Test</title>
 </head>
 <body>
-    {{ b.name }}
-    {{ b.director }}
+    {% for b in bb %}
+        {{ b.name }}
+    {% endfor %}
 </body>
 </html>

@@ -21,9 +21,11 @@ html, body {
 
 .header__container {
     display: flex;
+    margin: 0px 320px;
 }
 
 .menu {
+    display: flex;
     list-style: none;
 }
 
@@ -52,7 +54,9 @@ html, body {
 
 .films {
     display: flex;
+    flex-wrap: wrap;
     margin: 0px 40px;
+    /* justify-content: space-between; */
 }
 
 .film__card {
@@ -67,12 +71,13 @@ html, body {
 }
 
 .film_img {
-    height: 250px;
+    height: 270px;
     width: 200px;
     box-sizing: border-box;
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
+    border-radius: 5px;
 }
 
 .footer {

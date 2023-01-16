@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Film
 
 
@@ -8,7 +8,7 @@ def getFilms(request):
 
 
 def getFilm(request, film_id):
-    film = Film.objects.get(pk=film_id)
+    film = get_object_or_404(Film, pk=film_id)
     return render(request, 'films/film.html', {'film': film})
 
 
@@ -27,8 +27,11 @@ def getThrillers(request):
     return render(request, 'films/thrillers.html', {'thrillers': thrillers})
 
 
+def getFantasys(request):
+    fantasys = Film.objects.filter(genre='фантастика')
+    return render(request, 'films/fantasys.html', {'fantasys': fantasys})
+
+
 # def test(request):
-#     b = Film.objects.get(pk=1)
-#     b.name = "Аманат"
-#     b.save()
-#     return render(request, 'films/test.html', {'b': b})
+#     bb = Film.objects.filter(name__icontains='Побег')
+#     return render(request, 'films/test.html', {'bb': bb})
