@@ -13,7 +13,7 @@ def getFilm(request, film_id):
 
 
 def getComedys(request):
-    comedys = Film.objects.filter(genre='комедия')
+    comedys = Film.objects.filter(name='комедия')
     return render(request, 'films/comedys.html', {'comedys': comedys})
 
 
