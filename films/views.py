@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Film
+from .models import Film, Genre, Person
 
 
 def getFilms(request):
@@ -32,6 +32,6 @@ def getFantasys(request):
     return render(request, 'films/fantasys.html', {'fantasys': fantasys})
 
 
-# def test(request):
-#     bb = Film.objects.filter(name__icontains='Побег')
-#     return render(request, 'films/test.html', {'bb': bb})
+def test(request):
+    persons = Person.objects.all()
+    return render(request, 'films/test.html', {'persons': persons})

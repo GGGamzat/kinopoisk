@@ -1,10 +1,21 @@
 from django.db import models
 
 
+class Genre(models.Model):
+    name = models.CharField('Имя жанра', max_length=50)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Жанр'
+        verbose_name_plural = 'Жанры'
+
+
 class Film(models.Model):
     image = models.ImageField('Изображение', upload_to='images_films/')
     name = models.CharField('Название', max_length=50)
-    genre = models.CharField('Жанр', max_length=50)
+    genre = models.ManyToManyField(Genre)
     text = models.TextField('Описание')
     country = models.CharField('Страна', max_length=50)
     director = models.CharField('Режиссёр', max_length=50)
@@ -15,3 +26,13 @@ class Film(models.Model):
     class Meta:
         verbose_name = 'Фильм'
         verbose_name_plural = 'Фильмы'
+
+
+class Person(models.Model):
+    image = models.ImageField('Фото', upload_to='images_persons/')
+    name = models.CharField('Имя', max_length=50)
+    films = models.ManyToManyField(Film)
+
+    class Meta:
+        verbose_name = 'Персона'
+        verbose_name_plural = 'Персоны'

@@ -8,5 +8,5 @@ urlpatterns = [
     path('cartoon/', views.getCartoons),
     path('thriller/', views.getThrillers),
     path('fantasy/', views.getFantasys),
-    # path('test/', views.test),
+    path('test/', views.test),
 ]
