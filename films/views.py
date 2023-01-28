@@ -1,37 +1,41 @@
 from django.shortcuts import render, get_object_or_404
+from django.views.generic import ListView, DetailView
+
 from .models import Film, Genre, Person
 
 
-def getFilms(request):
-    films = Film.objects.all()
-    return render(request, 'films/films.html', {'films': films})
+class getFilms(ListView):
+    model = Film
+    template_name = 'films/films.html'
+    context_object_name = 'films'
 
 
-def getFilm(request, film_id):
-    film = get_object_or_404(Film, pk=film_id)
-    return render(request, 'films/film.html', {'film': film})
+class getFilm(DetailView):
+    model = Film
+    template_name = 'films/film.html'
+    context_object_name = 'film'
+    pk_url_kwarg = 'film_id'
 
 
-def getComedys(request):
-    comedys = Film.objects.filter(name='комедия')
-    return render(request, 'films/comedys.html', {'comedys': comedys})
+class getGenre(ListView):
+    model = Film
+    template_name = 'films/genres.html'
+    context_object_name = 'films'
+
+    def get_queryset(self):
+        return Film.objects.filter(genre__slug=self.kwargs['slug'])
+
+    # def get_context_data(self, *, object_list=None, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context['genre'] = str(context['genres'][0].name)
+    #     return context
 
 
-def getCartoons(request):
-    cartoons = Film.objects.filter(genre='мультфильм')
-    return render(request, 'films/cartoons.html', {'cartoons': cartoons})
+# def getGenre(request, slug):
+#     genres = Film.objects.filter(genre__slug=slug)
+#     return render(request, 'films/genres.html', {'genres': genres})
 
 
-def getThrillers(request):
-    thrillers = Film.ojects.filter(genre='триллер')
-    return render(request, 'films/thrillers.html', {'thrillers': thrillers})
-
-
-def getFantasys(request):
-    fantasys = Film.objects.filter(genre='фантастика')
-    return render(request, 'films/fantasys.html', {'fantasys': fantasys})
-
-
-def test(request):
-    persons = Person.objects.all()
-    return render(request, 'films/test.html', {'persons': persons})
+# def test(request):
+#     persons = Person.objects.all()
+#     return render(request, 'films/test.html', {'persons': persons})
