@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.postgres',
+    'django_extensions',
     'debug_toolbar',
 
     'main',
@@ -74,7 +75,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'kinopoisk_db',
         'USER': 'postgres',
-        'PASSWORD': 'bublik2903',
+        'PASSWORD': 'admin2006',
         'HOST': 'localhost',
         'PORT': '5432',
     }
