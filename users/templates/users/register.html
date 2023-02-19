@@ -8,6 +8,22 @@
 	<link rel="stylesheet" href="{% static 'main/css/style.css' %}">
 </head>
 <body>
-	
+	<div class="block_form">
+		<a href="{% url 'main' %}">
+			<img class="logo" src="{% static 'main/img/logo.svg' %}" alt="logo">
+		</a>
+		<h3>Зарегистрируйтесь</h3>
+		<form class="register" method='post'>
+			{% csrf_token %}
+
+			{{ form.username }}
+			{{ form.email }}
+			{{ form.phone }}
+			{{ form.password }}
+			{{ form.password2 }}
+
+			<input class="button" type="submit" value='Регистрация'>
+		</form>
+	</div>
 </body>
 </html>

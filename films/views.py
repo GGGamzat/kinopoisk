@@ -14,9 +14,9 @@ class getFilms(ListView):
     context_object_name = 'films'
 
 
-def test(request):
-    films = Film.objects.all()
-    return render(request, 'films/test.html', {'films': films})
+# def test(request):
+#     films = Film.objects.all()
+#     return render(request, 'films/test.html', {'films': films})
 
 
 class getFilm(DetailView):
