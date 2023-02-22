@@ -1,14 +1,14 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect, HttpResponse
 from django.dispatch import receiver
-from .forms import RegisterForm
+from .forms import RegisterForm, LoginForm
 from django.urls import reverse_lazy
 
 from django.views.generic import CreateView
 
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LogoutView
 from .models import CustomUser
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
 
@@ -27,25 +27,28 @@ def register(request):
 	return render(request, 'users/register.html', {'form': form})
 
 
-class login(LoginView):
-	template_name = 'users/login.html'
-	redirect_field_name = 'users/profile.html'
+def user_login(request):
+	if request.method == 'POST':
+		form = LoginForm(request.POST)
+		if form.is_valid():
+			cd = form.cleaned_data
+			user = authenticate(email=cd['email'], password=cd['password'])
+			if user is not None:
+				if user.is_active:
+					login(request, user)
+					return render(request, 'users/profile.html')
+				else:
+					return HttpResponse('Отключённая учётная запись')
+			else:
+				return HttpResponse('Неверный логин или пароль.')
+	else:
+		form = LoginForm()
+	return render(request, 'users/login.html', {'form': form})
 
 
-# def login(request):
-# 	email = request.POST['email']
-# 	password = request.POST['password']
-# 	user = authenticate(request, email=email, password=password)
-# 	if user is not None:
-# 		login(request, user)
-# 		return render(request, 'users/profile.html')
-# 	else:
-# 		return render(request, 'users/login.html')
-
-
-def logout(request):
+def user_logout(request):
 	logout(request)
-	return render(request, 'main/main.html')
+	return redirect('main')
 
 
 # @receiver

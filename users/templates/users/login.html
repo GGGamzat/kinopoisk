@@ -8,6 +8,19 @@
 	<link rel="stylesheet" href="{% static 'main/css/style.css' %}">
 </head>
 <body>
-	<div class="container"></div>
+	<div class="block_form">
+		<a href="{% url 'main' %}">
+			<img class="logo" src="{% static 'main/img/logo.svg' %}" alt="logo">
+		</a>
+		<h3>Войдите</h3>
+		<form class="register" method='post'>
+			{% csrf_token %}
+
+			{{ form.email }}
+			{{ form.password }}
+
+			<input class="button" type="submit" value='Войти'>
+		</form>
+	</div>
 </body>
 </html>

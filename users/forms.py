@@ -1,5 +1,6 @@
 from django import forms
 from django.forms import ModelForm
+from django.contrib.auth.forms import AuthenticationForm
 
 from .models import CustomUser
 
@@ -20,3 +21,8 @@ class RegisterForm(forms.ModelForm):
 		if cd['password'] != cd ['password2']:
 			raise forms.ValidationError('Password don\'t match')
 		return cd['password2']
+
+
+class LoginForm(forms.Form):
+	email = forms.EmailField(widget=forms.TextInput(attrs={'class': 'input', 'placeholder': 'Ender email'}))
+	password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'input', 'placeholder': 'Enter password'}))
