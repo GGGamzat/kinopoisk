@@ -3,9 +3,19 @@
 {% load static %}
 
 {% block title %}
-	Профиль
+	Профиль: {{ user.username }}
 {% endblock %}
 
 {% block main %}
-	<a href="{% url 'logout' %}">Выйти</a>
+	<div class="main__container">
+		<div class="main_profile clear-fix">
+			<div class="avatar" style="background-image: url({{ profile.avatar.url }})"></div>
+			<div class="info_profile">
+				{{ profile.user.username }}
+				{{ profile.user.email }}
+				{{ profile.user.phone }}
+				<a href="{% url 'logout' %}">Выйти</a>
+			</div>
+		</div>
+	</div>
 {% endblock %}

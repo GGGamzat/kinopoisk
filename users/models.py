@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.base_user import BaseUserManager
 from phonenumber_field.modelfields import PhoneNumberField
@@ -21,6 +22,12 @@ class CustomUserManager(BaseUserManager):
     	user.save(using=self._db)
     	return user
 
+    # def create_superuser(self, email, password=None):
+    #     user = self.create_user(email, password=password)
+    #     user.is_staff = True
+    #     user.save(using=self._db)
+    #     return user
+
 
 class CustomUser(AbstractBaseUser):
     username = models.CharField('Имя', max_length=50)
@@ -42,3 +49,15 @@ class CustomUser(AbstractBaseUser):
     class Meta:
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    avatar = models.ImageField('Аватар', null=True, blank=True, default='images_avatars/default_avatar.png', upload_to='images_avatars')
+
+    def __str__(self):
+        return self.user.email
+
+    class Meta:
+        verbose_name = 'Профиль'
+        verbose_name_plural = 'Профили'

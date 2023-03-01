@@ -1,20 +1,22 @@
 from django import forms
 from django.forms import ModelForm
-from django.contrib.auth.forms import AuthenticationForm
+from django.core.exceptions import ValidationError
 
 from .models import CustomUser
 
 
 class RegisterForm(forms.ModelForm):
-	username = forms.CharField(widget=forms.TextInput(attrs={'class': 'input', 'placeholder': 'Enter username'}), max_length=50)
-	email = forms.EmailField(widget=forms.TextInput(attrs={'class': 'input', 'placeholder': 'Enter email'}), max_length=100)
-	phone = forms.CharField(widget=forms.TextInput(attrs={'class': 'input', 'placeholder': 'Enter phone'}))
-	password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'input', 'placeholder': 'Enter password'}))
+	password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'input', 'placeholder': 'Enter password'}), min_length=6)
 	password2 = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'input', 'placeholder': 'Repeat password'}))
 
 	class Meta:
 		model = CustomUser
-		fields = ['username', 'email', 'phone']
+		exclude = ['is_staff']
+		widgets = {
+			'username': forms.TextInput(attrs={'class': 'input', 'placeholder': 'Enter username'}),
+			'email': forms.TextInput(attrs={'class': 'input', 'placeholder': 'Enter email'}),
+			'phone': forms.TextInput(attrs={'class': 'input', 'placeholder': 'Enter phone'}),
+		}
 
 	def clean_password2(self):
 		cd = self.cleaned_data
@@ -24,5 +26,5 @@ class RegisterForm(forms.ModelForm):
 
 
 class LoginForm(forms.Form):
-	email = forms.EmailField(widget=forms.TextInput(attrs={'class': 'input', 'placeholder': 'Ender email'}))
+	email = forms.EmailField(widget=forms.TextInput(attrs={'class': 'input', 'placeholder': 'Enter email'}))
 	password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'input', 'placeholder': 'Enter password'}))

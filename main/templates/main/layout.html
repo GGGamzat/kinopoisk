@@ -24,7 +24,7 @@
                     </ul>
                 </nav>
                 {% if request.user.is_authenticated %}
-                    <a href="{% url 'profile' %}">{{ user }}</a>
+                    <a href="{% url 'profile' user.id %}">{{ user }}</a>
                 {% else %}
                     <a href="{% url 'register' %}">Регистрация</a>
                     <a href="{% url 'login' %}">Войти</a>

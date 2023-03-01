@@ -57,7 +57,6 @@ html, body {
     display: flex;
     flex-wrap: wrap;
     margin: 0px 40px;
-    /* justify-content: space-between; */
 }
 
 .film__card {
@@ -80,6 +79,33 @@ html, body {
     background-repeat: no-repeat;
     border-radius: 5px;
 }
+
+
+
+
+/*profile.html*/
+
+.main_profile {
+    margin: 10px;
+    float: left;
+    overflow: hidden;
+    box-sizing: border-box;
+    background-color: #333;
+}
+
+.avatar {
+    display: block;
+    float: left;
+    height: 160px;
+    width: 160px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+
 
 .footer {
     flex: 0 0 auto;
