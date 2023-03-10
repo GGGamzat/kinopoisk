@@ -62,7 +62,7 @@ def user_logout(request):
 	return redirect('main')
 
 
-class profile(DetailView):
+class ProfileView(DetailView):
 	model = Profile
 	template_name = 'users/profile.html'
 	context_object_name = 'profile'
