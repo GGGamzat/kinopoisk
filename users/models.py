@@ -61,3 +61,31 @@ class Profile(models.Model):
     class Meta:
         verbose_name = 'Профиль'
         verbose_name_plural = 'Профили'
+
+
+class Subscription(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    time_limit = models.IntegerField('Длительность')
+    price = models.IntegerField('Цена')
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        db_table = 'subscription'
+        verbose_name = 'Подписка'
+        verbose_name_plural = 'Подписки'
+
+
+class UserSubscription(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    subscription = models.ForeignKey(Subscription, on_delete=models.CASCADE)
+    date = models.DateField('Дата подписки', auto_now_add=True)
+
+    def __str__(self):
+        return self.user.email
+
+    class Meta:
+        db_table = 'user_subscription'
+        verbose_name = 'Подписка пользователя'
+        verbose_name_plural = 'Подписки пользователей'

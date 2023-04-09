@@ -20,20 +20,33 @@ class Genre(models.Model):
 
 class Film(models.Model):
 
-    COUNTRY = (
-        ('U', 'США'),
-        ('R', 'Россия'),
-        ('UK', 'Великобритания'),
-        ('F', 'Франция'),
-        ('N', 'Япония'),
+    Y = 'Да'
+    N = 'Нет'
+    BY_SUBSCRIPTION = (
+        (Y, 'Да'),
+        (N, 'Нет'),
     )
 
+    U = 'США'
+    R = 'Россия'
+    UK = 'Великобритания'
+    F = 'Франция'
+    N = 'Япония'
+    COUNTRY = (
+        (U, 'США'),
+        (R, 'Россия'),
+        (UK, 'Великобритания'),
+        (F, 'Франция'),
+        (N, 'Япония'),
+    )
+
+    by_subscription = models.CharField('По подписке', default='Нет', max_length=10, choices=BY_SUBSCRIPTION)
     image = models.ImageField('Изображение', upload_to='images_films/')
     name = models.CharField('Название', max_length=50)
     genre = models.ManyToManyField(Genre)
     # slug = models.SlugField('URL', max_length=50, unique=True)
     text = models.TextField('Описание')
-    country = models.CharField('Страна', max_length=50, choices=COUNTRY)
+    country = models.CharField('Страна', default='США', max_length=50, choices=COUNTRY)
     director = models.CharField('Режиссёр', max_length=50)
 
     # def get_absolute_url(self):

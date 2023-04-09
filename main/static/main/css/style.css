@@ -1,3 +1,7 @@
+html, body {
+    font-family: Montserrat, sans-serif;
+}
+
 html {
 	margin: 0;
 	height: 100%;
@@ -25,7 +29,13 @@ body {
 	margin-left: 85px;
 }
 
-.logo {}
+.logo {
+	margin-left: 360px;
+	font-size: 30px;
+	font-weight: 900;
+	text-decoration: none;
+	color: #ffbf00;
+}
 
 .block_form h3 {
 	margin-left: 110px;
@@ -57,4 +67,40 @@ body {
 	border: 2px solid #d8e02f;
 	border-radius: 7px;
 	background-color: #d8e02f;
+}
+
+
+
+
+
+/*subscribe.html*/
+
+.subscribe__block {
+	margin-top: 50px;
+	width: 930px;
+}
+
+.text1 {
+	margin-top: 20px;
+	font-size: 50px;
+	font-weight: 900;
+	color: #fff;
+}
+
+.text2 {
+	margin-left: 140px;
+	font-size: 50px;
+	font-weight: 900;
+	color: #fff;
+}
+
+.subscribe-btn {
+	margin-top: 30px;
+	margin-left: 325px;
+	height: 50px;
+	width: 310px;
+	font-size: 18px;
+	border-radius: 30px;
+	border: 0px;
+	background: linear-gradient(to right, blue, pink);
 }

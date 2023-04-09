@@ -145,6 +145,15 @@ INTERNAL_IPS = [
 ]
 
 
+# Send mail
+
+RECIPIENTS_EMAIL = ['abdullayevgamzat@gmail.com']
+DEFAULT_FROM_EMAIL = 'abdullayevgamzat@gmail.com'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
+# Caching
+
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
@@ -152,6 +161,8 @@ CACHES = {
     }
 }
 
+
+#Logging
 
 LOGGING = {
     'version': 1,
