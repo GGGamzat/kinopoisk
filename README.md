@@ -4,4 +4,5 @@
 $ python -m venv .venv
 
 # Затем активируйте его:
-$ .venv\Scripts\activate
+Windows:  .venv\Scripts\activate
+Linux: $ source .venv/bin/activate
