@@ -1,13 +1,15 @@
 import datetime
-from querybuilder.query import Query
+# from querybuilder.query import Query
 from django.db import connection
 from collections import namedtuple
 
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DetailView
 
-from .models import Film, Genre
+from .models import Film, Genre, Comment
 from users.models import UserSubscription, Subscription
+
+from .forms import CommentForm, RatingForm
 
 
 class getFilms(ListView):
@@ -26,15 +28,37 @@ class getFilms(ListView):
 def film(request, film_id):
     film = Film.objects.get(pk=film_id)
     subscription = Subscription.objects.get(name='"Кино Плюс"')
+    comments = Comment.objects.filter(film=film)
 
-    try:
-        sub = UserSubscription.objects.get(user=request.user)
-    except UserSubscription.DoesNotExist:
+    if request.user.is_authenticated:
+        try:
+            sub = UserSubscription.objects.get(user=request.user)
+        except UserSubscription.DoesNotExist:
+            sub = None
+    else:
         sub = None
 
     if film.by_subscription == 'Да':
         if sub is None:
-            return render(request, 'films/pay_film.html', {'film': film})
+            if request.method == 'POST':
+                form = RatingForm(request.POST)
+                if form.is_valid():
+                    form = form.save(commit=False)
+                    form.user = request.user
+                    form.film = film
+                    form.save()
+            else:
+                form = RatingForm()
+            if request.method == 'POST':
+                comment_form = CommentForm(request.POST)
+                if comment_form.is_valid():
+                    comment = comment_form.save(commit=False)
+                    comment.user = request.user
+                    comment.film = film
+                    comment.save()
+            else:
+                comment_form = CommentForm()
+            return render(request, 'films/pay_film.html', {'film': film, 'form': form, 'comment_form': comment_form, 'comments': comments})
         elif sub is not None:
             date_now = datetime.date.today()
             year = sub.date.year
@@ -43,11 +67,65 @@ def film(request, film_id):
             date = datetime.date(year, month, day)
             check = (date_now - date).days
             if check <= subscription.time_limit:
-                return render(request, 'films/film.html', {'film': film})
+                if request.method == 'POST':
+                    form= RatingForm(request.POST)
+                    if form.is_valid():
+                        form = form.save(commit=False)
+                        form.user = request.user
+                        form.film = film
+                        form.save()
+                else:
+                    form = RatingForm()
+                if request.method == 'POST':
+                    comment_form = CommentForm(request.POST)
+                    if comment_form.is_valid():
+                        comment = comment_form.save(commit=False)
+                        comment.user = request.user
+                        comment.film = film
+                        comment.save()
+                else:
+                    comment_form = CommentForm()
+                return render(request, 'films/film.html', {'film': film, 'form': form, 'comment_form': comment_form, 'comments': comments})
             else:
-                return render(request, 'films/pay_film.html', {'film': film})
+                if request.method == 'POST':
+                    form= RatingForm(request.POST)
+                    if form.is_valid():
+                        form = form.save(commit=False)
+                        form.user = request.user
+                        form.film = film
+                        form.save()
+                else:
+                    form = RatingForm()
+                if request.method == 'POST':
+                    comment_form = CommentForm(request.POST)
+                    if comment_form.is_valid():
+                        comment = comment_form.save(commit=False)
+                        comment.user = request.user
+                        comment.film = film
+                        comment.save()
+                else:
+                    comment_form = CommentForm()
+                return render(request, 'films/pay_film.html', {'film': film, 'form': form, 'comment_form': comment_form, 'comments': comments})
     else:
-        return render(request, 'films/film.html', {'film': film})
+        if request.method == 'POST':
+            form= RatingForm(request.POST)
+            if form.is_valid():
+                form = form.save(commit=False)
+                form.user = request.user
+                form.film = film
+                form.save()
+        else:
+            form = RatingForm()
+        if request.method == 'POST':
+            comment_form = CommentForm(request.POST)
+            if comment_form.is_valid():
+                comment = comment_form.save(commit=False)
+                comment.user = request.user
+                comment.film = film
+                comment.save()
+        else:
+            comment_form = CommentForm()
+        return render(request, 'films/film.html', {'film': film, 'form': form, 'comment_form': comment_form, 'comments': comments})
 
 
 class getGenre(ListView):

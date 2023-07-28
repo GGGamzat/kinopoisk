@@ -21,5 +21,29 @@
             </div>
             <button>Оформить подписку на 30 дней</button>
         </div>
+        <div class="rating">
+            <h3>Оставить отзыв:</h3>
+            {% if request.user.is_authenticated %}
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.mark }}
+                    {{ form.user }}
+                    {{ form.film }}
+                    <input type="submit" value="Оценить">
+                </form>
+            {% else %}
+                <a href="{% url 'login' %}">Необходимо авторизаваться</a>
+            {% endif %}
+        </div>
+        <div class="commets">
+            <h3>Комментарии:</h3>
+            <form method="post">
+                {% csrf_token %}
+                {{ comment_form.text }}
+                <input type="submit" value="Оставить комментарий">
+            </form>
+            {{ comments.user.username }}
+            {{ comments.text }}
+        </div>
     </div>
 {% endblock %}

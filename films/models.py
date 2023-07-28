@@ -1,4 +1,5 @@
 from django.db import models
+from users.models import CustomUser, Profile
 from django.urls import reverse
 
 
@@ -59,6 +60,44 @@ class Film(models.Model):
         db_table = 'Film'
         verbose_name = 'Фильм'
         verbose_name_plural = 'Фильмы'
+
+
+class Comment(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    film = models.ForeignKey(Film, on_delete=models.CASCADE)
+    text = models.TextField('Текст')
+
+    def __str__(self):
+        return self.user.username
+
+    class Meta:
+        db_table = 'comment'
+        verbose_name = 'Комментарий'
+        verbose_name_plural = 'Комментарии'
+
+
+class RatingMark(models.Model):
+    mark = models.SmallIntegerField('Оценка')
+
+    def __str__(self):
+        return f'Оценка: {self.mark}'
+    
+    class Meta:
+        verbose_name = 'Оценка'
+        verbose_name_plural = 'Оценки'
+
+
+class Rating(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    mark = models.ForeignKey(RatingMark, on_delete=models.CASCADE)
+    film = models.ForeignKey(Film, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.user.username
+    
+    class Meta:
+        verbose_name = 'Отзыв'
+        verbose_name_plural = 'Отзывы'
 
 
 # class Person(models.Model):
