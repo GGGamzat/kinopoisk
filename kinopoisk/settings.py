@@ -77,7 +77,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'kinopoisk_db',
         'USER': 'postgres',
-        'PASSWORD': '2006',
+        'PASSWORD': '2222',
         'HOST': 'localhost',
         'PORT': '5432',
     }
