@@ -24,3 +24,17 @@ source .venv/bin/activate
 ```
 pip install -r requirements.txt
 ```
+
++ На вашей операционой системе должен быть установлен PostgreSQL
++ Создайте базу данных kinopoisk_db в PotgreSQL
++ Проведите миграции командой:
+
+#### Windows
+```
+python manage.py migrate
+```
+
+#### Linux
+```
+python3 manage.py migrate
+```
