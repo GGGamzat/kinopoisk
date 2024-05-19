@@ -38,3 +38,15 @@ python manage.py migrate
 ```
 python3 manage.py migrate
 ```
+
++ Создайте суперпользователя для входа в админ панель:
+
+#### Windows
+```
+python manage.py createsuperuser
+```
+
+#### Linux
+```
+python3 manage.py createsuperuser
+```
